@@ -1,6 +1,6 @@
 {
     "name": "biigle/kpis",
-    "description": "BIIGLE module to collect key performance indocators.",
+    "description": "BIIGLE module to collect key performance indicators.",
     "keywords": ["biigle", "biigle-module"],
     "license": "GPL-3.0-only",
     "support": {
@@ -17,6 +17,13 @@
     "autoload": {
       "psr-4": {
          "Biigle\\Modules\\Kpis\\": "src"
+      }
+    },
+    "extra": {
+      "laravel": {
+          "providers": [
+              "Biigle\\Modules\\Kpis\\KpisServiceProvider"
+          ]
       }
     }
 }
