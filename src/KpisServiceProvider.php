@@ -5,6 +5,8 @@ namespace Biigle\Modules\Kpis;
 use Biigle\Services\Modules;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Console\Scheduling\Schedule;
+use Biigle\Modules\Kpis\Console\Commands\CountUniqueUser;
 
 class KpisServiceProvider extends ServiceProvider
 {
@@ -19,6 +21,7 @@ class KpisServiceProvider extends ServiceProvider
     public function boot(Modules $modules, Router $router)
     {
         // $this->loadViewsFrom(__DIR__.'/resources/views', 'kpis');
+        $this->loadMigrationsFrom(__DIR__.'/Database/migrations');
 
         $router->group([
             'namespace' => 'Biigle\Modules\Kpis\Http\Controllers',
@@ -42,6 +45,7 @@ class KpisServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/public/assets' => public_path('vendor/kpis'),
         ], 'public');
+
     }
 
     /**
@@ -51,6 +55,6 @@ class KpisServiceProvider extends ServiceProvider
     */
     public function register()
     {
-        //
+        $this->mergeConfigFrom(__DIR__.'/config/kpis.php', 'kpis');
     }
 }
