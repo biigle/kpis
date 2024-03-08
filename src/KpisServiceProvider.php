@@ -46,6 +46,19 @@ class KpisServiceProvider extends ServiceProvider
             __DIR__.'/public/assets' => public_path('vendor/kpis'),
         ], 'public');
 
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                CountUniqueUser::class,
+            ]);
+
+            $this->app->booted(function () {
+                $schedule = app(Schedule::class);
+
+                $schedule->command(CountUniqueUser::class)
+                    ->monthlyOn(1, '0:0')
+                    ->onOneServer();
+            });
+        }
     }
 
     /**
