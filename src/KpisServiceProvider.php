@@ -2,10 +2,12 @@
 
 namespace Biigle\Modules\Kpis;
 
+use Biigle\Modules\Kpis\Console\Commands\DetermineStorageUsage;
 use Biigle\Services\Modules;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Console\Scheduling\Schedule;
+use Biigle\Modules\Kpis\Console\Commands\CountUser;
 use Biigle\Modules\Kpis\Console\Commands\CountUniqueUser;
 
 class KpisServiceProvider extends ServiceProvider
@@ -49,12 +51,17 @@ class KpisServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 CountUniqueUser::class,
+                DetermineStorageUsage::class,
             ]);
 
             $this->app->booted(function () {
                 $schedule = app(Schedule::class);
 
                 $schedule->command(CountUniqueUser::class)
+                    ->monthlyOn(1, '0:0')
+                    ->onOneServer();
+
+                $schedule->command(DetermineStorageUsage::class)
                     ->monthlyOn(1, '0:0')
                     ->onOneServer();
             });
