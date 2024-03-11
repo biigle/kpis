@@ -51,6 +51,7 @@ class KpisServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 CountUniqueUser::class,
+                CountUser::class,
                 DetermineStorageUsage::class,
             ]);
 
@@ -63,6 +64,10 @@ class KpisServiceProvider extends ServiceProvider
 
                 $schedule->command(DetermineStorageUsage::class)
                     ->monthlyOn(1, '0:0')
+                    ->onOneServer();
+
+                $schedule->command(CountUser::class)
+                    ->daily()
                     ->onOneServer();
             });
         }
