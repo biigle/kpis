@@ -2,13 +2,13 @@
 
 namespace Biigle\Modules\Kpis;
 
-use Biigle\Modules\Kpis\Console\Commands\DetermineStorageUsage;
 use Biigle\Services\Modules;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Console\Scheduling\Schedule;
 use Biigle\Modules\Kpis\Console\Commands\CountUser;
 use Biigle\Modules\Kpis\Console\Commands\CountUniqueUser;
+use Biigle\Modules\Kpis\Console\Commands\DetermineStorageUsage;
 
 class KpisServiceProvider extends ServiceProvider
 {
@@ -27,7 +27,7 @@ class KpisServiceProvider extends ServiceProvider
 
         $router->group([
             'namespace' => 'Biigle\Modules\Kpis\Http\Controllers',
-            'middleware' => 'web',
+            'middleware' => ['web','api'],
         ], function ($router) {
             require __DIR__.'/Http/routes.php';
         });
