@@ -11,7 +11,7 @@
 $router->group([
     // 'namespace' => 'Api',
     'prefix' => 'api/v1/kpis',
-    // 'middleware' => ['api', 'auth:web,api'],
+    'middleware' => ['auth.kpis'],
 ], function ($router) {
     $router->post('actions', [
         'uses' => 'RequestController@store'
