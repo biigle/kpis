@@ -18,7 +18,7 @@ class CountUniqueUserTest extends TestCase
         $this->artisan('kpis:count-unique-user')->assertExitCode(0);
 
         $uniqueUsers = DB::table('kpis_unique_users')
-                        ->where('date', '=', Carbon::now()->subMonth()->firstOfMonth())->pluck('value')[0];
+                        ->where('date', '=', Carbon::now()->subMonth()->endOfMonth())->pluck('value')[0];
 
         $this->assertEquals(3, $uniqueUsers);
 
@@ -32,7 +32,7 @@ class CountUniqueUserTest extends TestCase
         $this->artisan('kpis:count-unique-user')->assertExitCode(0);
 
         $uniqueUsers = DB::table('kpis_unique_users')
-                        ->where('date', '=', Carbon::now()->subMonth()->firstOfMonth())->pluck('value')[0];
+                        ->where('date', '=', Carbon::now()->subMonth()->endOfMonth())->pluck('value')[0];
 
         $this->assertEquals(1, $uniqueUsers);
     }

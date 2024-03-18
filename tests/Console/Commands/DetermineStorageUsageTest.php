@@ -31,7 +31,7 @@ class DetermineStorageUsageTest extends TestCase
 
         $this->artisan('kpis:determine-storage-usage')->assertExitCode(0);
 
-        $users = DB::table('kpis_storage_usage')->where('date', '=', Carbon::now()->subMonth()->firstOfMonth())->pluck('value')[0];
+        $users = DB::table('kpis_storage_usage')->where('date', '=', Carbon::now()->subMonth()->endOfMonth())->pluck('value')[0];
 
         $this->assertEquals(8, $users);
 
@@ -46,7 +46,7 @@ class DetermineStorageUsageTest extends TestCase
 
         $this->artisan('kpis:determine-storage-usage')->assertExitCode(0);
 
-        $users = DB::table('kpis_storage_usage')->where('date', '=', Carbon::now()->subMonth()->firstOfMonth())->pluck('value')[0];
+        $users = DB::table('kpis_storage_usage')->where('date', '=', Carbon::now()->subMonth()->endOfMonth())->pluck('value')[0];
 
         $this->assertEquals(0, $users);
     }

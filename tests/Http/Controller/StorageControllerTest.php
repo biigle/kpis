@@ -14,8 +14,6 @@ class StorageControllerTest extends ApiTestCase
         $now = Carbon::now();
         $this->doTestApiRoute('GET', '/api/v1/kpis/storage/'.$now->year.'/'.$now->month);
 
-        $today = Carbon::today()->toDateString();
-
         ImageTest::create([
             'attrs' => [
                 'size' => 3189539,
