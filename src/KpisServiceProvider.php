@@ -25,11 +25,17 @@ class KpisServiceProvider extends ServiceProvider
         // $this->loadViewsFrom(__DIR__.'/resources/views', 'kpis');
         $this->loadMigrationsFrom(__DIR__.'/Database/migrations');
 
+        // $router->group([
+        //     'namespace' => 'Biigle\Modules\Kpis\Http\Controllers',
+        //     'middleware' => ['web','api'],
+        // ], function ($router) {
+        //     require __DIR__.'/Http/routes.php';
+        // });
+
         $router->group([
             'namespace' => 'Biigle\Modules\Kpis\Http\Controllers',
-            'middleware' => ['web','api'],
         ], function ($router) {
-            require __DIR__.'/Http/routes.php';
+            require __DIR__.'/Http/api.php';
         });
 
         $modules->register('kpis', [
