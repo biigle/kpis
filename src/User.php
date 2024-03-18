@@ -11,11 +11,13 @@ class User
     {
         $first = Carbon::createFromDate($year, $month, 1);
         $last = $first->copy()->endOfMonth();
-        return DB::table('kpis_users')->whereBetween('date',[$first->toDateString(), $last->toDateString()])->count();
+        return DB::table('kpis_users')->whereBetween('date', [$first->toDateString(), $last->toDateString()])->count();
     }
     public static function getUniqueUser($year, $month)
     {
         $date = Carbon::createFromDate($year, $month, 1)->endOfMonth()->toDateString();
-        return DB::table('kpis_unique_users')->where('date', '=', $date)->pluck('value')[0];
+        $res =  count(DB::table('kpis_unique_users')->where('date', '=', $date)->pluck('value')) != 0 ?
+        DB::table('kpis_unique_users')->where('date', '=', $date)->pluck('value')[0] : 0;
+        return $res;
     }
 }
