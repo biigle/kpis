@@ -8,6 +8,12 @@ use Biigle\Http\Controllers\Controller;
 
 class RequestController extends Controller
 {
+    /**
+     * Stores action and visit counts
+     * 
+     * @param Request $request containing the json object
+     * 
+    */
     public function store(Request $request)
     {
         $res = json_decode($request->get('value'), true, JSON_BIGINT_AS_STRING);
