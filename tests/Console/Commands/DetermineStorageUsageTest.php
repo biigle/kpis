@@ -12,8 +12,6 @@ class DetermineStorageUsageTest extends TestCase
 {
     public function testHandle()
     {
-        $today = Carbon::today()->toDateString();
-
         ImageTest::create([
             'attrs' => [
                 'size' => 3189539,
@@ -33,15 +31,13 @@ class DetermineStorageUsageTest extends TestCase
 
         $this->artisan('kpis:determine-storage-usage')->assertExitCode(0);
 
-        $users = DB::table('kpis_storage_usage')->where('date', '=', $today)->pluck('value')[0];
+        $users = DB::table('kpis_storage_usage')->where('date', '=', Carbon::now()->subMonth()->firstOfMonth())->pluck('value')[0];
 
         $this->assertEquals(8, $users);
 
     }
 
     public function testEmptyAttributeArrays(){
-
-        $today = Carbon::today()->toDateString();
 
         ImageTest::create(['attrs' => []]);
         ImageTest::create([]);
@@ -50,7 +46,7 @@ class DetermineStorageUsageTest extends TestCase
 
         $this->artisan('kpis:determine-storage-usage')->assertExitCode(0);
 
-        $users = DB::table('kpis_storage_usage')->where('date', '=', $today)->pluck('value')[0];
+        $users = DB::table('kpis_storage_usage')->where('date', '=', Carbon::now()->subMonth()->firstOfMonth())->pluck('value')[0];
 
         $this->assertEquals(0, $users);
     }
