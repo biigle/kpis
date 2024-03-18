@@ -33,9 +33,11 @@ class DetermineStorageUsage extends Command
     public function handle()
     {
         $size = $this->determineSize();
+        
+        $date = Carbon::now()->subMonth()->endOfMonth()->toDateString();
 
-        DB::transaction(function () use ($size) {
-            DB::table('kpis_storage_usage')->insert(['date' => Carbon::now()->subMonth()->startOfMonth()->toDateString(), 'value' => $size]);
+        DB::transaction(function () use ($size, $date) {
+            DB::table('kpis_storage_usage')->insert(['date' => $date, 'value' => $size]);
         });
     }
 

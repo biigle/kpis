@@ -15,7 +15,7 @@ class User
     }
     public static function getUniqueUser($year, $month)
     {
-        $date = Carbon::createFromDate($year, $month, 1)->toDateString();
+        $date = Carbon::createFromDate($year, $month, 1)->endOfMonth()->toDateString();
         return DB::table('kpis_unique_users')->where('date', '=', $date)->pluck('value')[0];
     }
 }

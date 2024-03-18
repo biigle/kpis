@@ -32,10 +32,10 @@ class CountUniqueUser extends Command
     {
         $nbrUser = $this->countUniqueUser();
 
-        $fromDate = Carbon::now()->subMonth()->startOfMonth()->toDateString();
+        $date = Carbon::now()->subMonth()->endOfMonth()->toDateString();
 
-        DB::transaction(function () use ($nbrUser, $fromDate) {
-            DB::table('kpis_unique_users')->insert(['date' => $fromDate, 'value' => $nbrUser]);
+        DB::transaction(function () use ($nbrUser, $date) {
+            DB::table('kpis_unique_users')->insert(['date' => $date, 'value' => $nbrUser]);
         });
     }
 
