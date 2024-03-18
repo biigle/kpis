@@ -43,4 +43,15 @@ class StorageControllerTest extends ApiTestCase
 
         $this->assertEquals(8, $count);
     }
+
+    public function testNoStorageFound(){
+        $now = Carbon::now();
+        $this->artisan('kpis:determine-storage-usage')->assertExitCode(0);
+        $this->beAdmin(); //TODO: add check for user role
+        $response = $this->get('/api/v1/kpis/storage/'.$now->year.'/'.$now->month);
+        $count = $response->getContent();
+        $response->assertStatus(200);
+
+        $this->assertEquals(0, $count);
+    }
 }
