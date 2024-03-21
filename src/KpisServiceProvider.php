@@ -22,8 +22,15 @@ class KpisServiceProvider extends ServiceProvider
    */
     public function boot(Modules $modules, Router $router)
     {
-        // $this->loadViewsFrom(__DIR__.'/resources/views', 'kpis');
+        $this->loadViewsFrom(__DIR__.'/resources/views', 'kpis');
         $this->loadMigrationsFrom(__DIR__.'/Database/migrations');
+
+        $router->group([
+            'namespace' => 'Biigle\Modules\Kpis\Http\Controllers\Views',
+            'middleware' => ['web','can:review'],
+        ], function ($router) {
+            require __DIR__.'/Http/web.php';
+        });
 
         $router->group([
             'namespace' => 'Biigle\Modules\Kpis\Http\Controllers',
