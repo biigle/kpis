@@ -2,7 +2,7 @@
 
 namespace Biigle\Modules\Kpis\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Biigle\Modules\Kpis\Http\Requests\StoreRequest;
 use Biigle\Modules\Kpis\Requests;
 use Biigle\Http\Controllers\Controller;
 
@@ -10,13 +10,13 @@ class RequestController extends Controller
 {
     /**
      * Stores action and visit counts
-     * 
-     * @param Request $request containing the json object
-     * 
+     *
+     * @param StoreRequest $request containing the json object
+     *
     */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        $res = json_decode($request->get('value'), true, JSON_BIGINT_AS_STRING);
+        $res = json_decode($request->get('value'), true);
         Requests::save($res['actions'], $res['visits']);
         return;
     }
