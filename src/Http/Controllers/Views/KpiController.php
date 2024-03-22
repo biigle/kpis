@@ -18,10 +18,10 @@ class KpiController extends Controller
      */
     public function show($idx)
     {
-        // If index is not in range, set it on index of current month
-        $idx = $idx == 0 || $idx > 6 ? 6 : $idx;
+        // If index is not in range, set it on index of last month
+        $idx = $idx == 0 || $idx > 5 ? 5 : $idx;
 
-        $date = Carbon::now()->subMonths(6 - $idx);
+        $date = Carbon::now()->subMonths(5 - $idx);
         $year = $date->year;
         $month = $date->month;
 
@@ -32,7 +32,7 @@ class KpiController extends Controller
         $storage = Storage::getStorageUsage($year, $month);
 
         $monthOverview = [];
-        for($i = 5;$i >= 0;$i--) {
+        for($i = 5;$i >= 1;$i--) {
             $monthName = Carbon::now()->subMonths($i)->format('F');
             $monthOverview[] = substr($monthName, 0, 3);
         }

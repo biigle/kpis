@@ -8,7 +8,7 @@ class KpiControllerTest extends ApiTestCase
 {
     public function testShow(){
 
-        $kpiPath = "admin/kpis/6";
+        $kpiPath = "admin/kpis/5";
 
         $this->beUser();
         $response = $this->get($kpiPath)->assertForbidden();
@@ -29,6 +29,12 @@ class KpiControllerTest extends ApiTestCase
         $response = $this->get($kpiPath);
         $response->assertStatus(200);
 
+        $this->beGlobalAdmin();
+        $response = $this->get($kpiPath);
+        $response->assertStatus(200);
+
+        // Indices > 5 are set to 5 (last month index)
+        $kpiPath = "admin/kpis/50";
         $this->beGlobalAdmin();
         $response = $this->get($kpiPath);
         $response->assertStatus(200);
