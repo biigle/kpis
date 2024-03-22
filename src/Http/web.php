@@ -1,6 +1,9 @@
 <?php
 
-$router->get('admin/kpis/{idx}', [
+$router->get(
+    'admin/kpis/{idx}',
+    [
    'middleware' => 'auth',
    'uses' => 'KpiController@show',
-]);
+    ],
+)->whereNumber('idx');

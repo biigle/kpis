@@ -2,8 +2,7 @@
 
 
 @push('scripts')
-    <script type="text/javascript">
-    </script>
+    <script type="text/javascript"></script>
 @endpush
 
 @section('admin-content')
@@ -11,8 +10,9 @@
         <div class="panel body">
             <div class="btn-group-lg" role="group">
                 @foreach ($monthOverview as $month)
-                    <a id="btn" href="{{substr(URL::current(),0,-1)."$loop->iteration"}}" 
-                        class="btn btn-default @if(URL::current()[-1] == $loop->iteration) active @endif">{{ $month }}</a>
+                    <a id="btn"
+                        href="{{ substr(URL::current(), 0, strrpos(URL::current(), 'kpis/') + 5) . "$loop->iteration" }}"
+                        class="btn btn-default @if ($idx == $loop->iteration) active @endif">{{ $month }}</a>
                 @endforeach
             </div>
         </div>

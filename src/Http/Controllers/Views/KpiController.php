@@ -10,8 +10,17 @@ use Biigle\Http\Controllers\Views\Controller;
 
 class KpiController extends Controller
 {
-    public function show(int $idx)
+    /**
+     * Shows the kpis page.
+     *
+     * @param int $idx month index
+     * @return \Illuminate\Http\Response
+     */
+    public function show($idx)
     {
+        // If index is not in range, set it on index of current month
+        $idx = $idx == 0 || $idx > 6 ? 6 : $idx;
+
         $date = Carbon::now()->subMonths(6 - $idx);
         $year = $date->year;
         $month = $date->month;
@@ -35,6 +44,7 @@ class KpiController extends Controller
             'userNbr' => $user,
             'storage' => $storage,
             'monthOverview' => $monthOverview,
+            'idx' => $idx,
         ]);
 
     }
