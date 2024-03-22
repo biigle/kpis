@@ -11,7 +11,7 @@ class User
     {
         $first = Carbon::createFromDate($year, $month, 1);
         $last = $first->copy()->endOfMonth();
-        return DB::table('kpis_users')->whereBetween('date', [$first->toDateString(), $last->toDateString()])->count();
+        return DB::table('kpis_users')->whereBetween('date', [$first->toDateString(), $last->toDateString()])->sum('value');
     }
     public static function getUniqueUser($year, $month)
     {
