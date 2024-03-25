@@ -16,7 +16,7 @@ class KpiController extends Controller
      * @param int $idx month index
      * @return \Illuminate\Http\Response
      */
-    public function show($idx)
+    public function show($idx = 5)
     {
         // If index is not in range, set it on index of last month
         $idx = $idx == 0 || $idx > 5 ? 5 : $idx;
