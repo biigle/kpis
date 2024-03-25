@@ -15,14 +15,18 @@ class RequestsTest extends TestCase
 
         $date = Carbon::now()->toDateString();
 
-        $actions = DB::table('kpis_actions')->where('date', '=', $date)->pluck('value')[0];
-        $visits = DB::table('kpis_visits')->where('date', '=', $date)->pluck('value')[0];
+        $actions = DB::table('kpis_actions')->where('date', '=', $date)->pluck('value');
+        $visits = DB::table('kpis_visits')->where('date', '=', $date)->pluck('value');
 
-        $this->assertEquals(50, $actions);
-        $this->assertEquals(100, $visits);
+        $this->assertCount(1, $actions);
+        $this->assertCount(1, $visits);
+
+        $this->assertEquals(50, $actions[0]);
+        $this->assertEquals(100, $visits[0]);
     }
 
-    public function testGetActions(){
+    public function testGetActions()
+    {
         $date = Carbon::now()->subMonth()->lastOfMonth();
 
         DB::table('kpis_actions')->insert(['date' => $date->toDateString(), 'value' => 10]);
@@ -31,7 +35,8 @@ class RequestsTest extends TestCase
 
         $this->assertEquals(10, $count);
     }
-    public function testGetVisits(){
+    public function testGetVisits()
+    {
         $date = Carbon::now()->subMonth()->lastOfMonth();
 
         DB::table('kpis_visits')->insert(['date' => $date->toDateString(), 'value' => 10]);
