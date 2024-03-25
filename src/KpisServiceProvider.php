@@ -34,13 +34,6 @@ class KpisServiceProvider extends ServiceProvider
 
         $router->group([
             'namespace' => 'Biigle\Modules\Kpis\Http\Controllers',
-            'middleware' => ['web','api'],
-        ], function ($router) {
-            require __DIR__.'/Http/routes.php';
-        });
-
-        $router->group([
-            'namespace' => 'Biigle\Modules\Kpis\Http\Controllers',
         ], function ($router) {
             require __DIR__.'/Http/api.php';
         });
