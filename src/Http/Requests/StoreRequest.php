@@ -15,8 +15,7 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            // max length of 71 when 2 x max integer length given
-            'value' => 'required|string|max:71',
+            'value' => 'required|string',
         ];
     }
 
