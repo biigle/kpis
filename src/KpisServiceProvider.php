@@ -47,7 +47,7 @@ class KpisServiceProvider extends ServiceProvider
 
         $modules->register('kpis', [
             'viewMixins' => [
-                //
+                'adminMenu',
             ],
             'controllerMixins' => [
                 //
