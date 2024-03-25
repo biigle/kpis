@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('kpis_storage_usage', function (Blueprint $table) {
-            $table->date('date');
+            $table->date('date')->unique();
             $table->bigInteger('value');
         });
     }
