@@ -82,7 +82,7 @@
             </div>
             <div class="panel-body">
                 <p class="h1 text-center">
-                    {{ $storage }}
+                    {{ $storage }} GB
                 </p>
             </div>
         </div>
