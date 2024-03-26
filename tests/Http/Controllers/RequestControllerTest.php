@@ -40,13 +40,4 @@ class RequestControllerTest extends ApiTestCase
             'value' => 'abc'
             ])->assertStatus(422);
     }
-    public function testStoreBigInt()
-    {
-        $maxBigInt = "9223372036854775807";
-        $this->withHeader('Authorization', env('KPI_TOKEN'))
-            ->postJson($this->route, [
-                'value' => '{"visits": '. $maxBigInt .', "actions": '. $maxBigInt.'}'
-                ])->assertStatus(200);
-    }
-
 }

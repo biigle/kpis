@@ -25,6 +25,23 @@ class RequestsTest extends TestCase
         $this->assertEquals(100, $visits[0]);
     }
 
+    public function testSaveBigInt(){
+        $maxBigInt = "9223372036854775807";
+
+        Requests::save($maxBigInt, $maxBigInt);
+
+        $date = Carbon::now()->toDateString();
+
+        $actions = DB::table('kpis_actions')->where('date', '=', $date)->pluck('value');
+        $visits = DB::table('kpis_visits')->where('date', '=', $date)->pluck('value');
+
+        $this->assertCount(1, $actions);
+        $this->assertCount(1, $visits);
+
+        $this->assertEquals($maxBigInt, $actions[0]);
+        $this->assertEquals($maxBigInt, $visits[0]);
+    }
+
     public function testGetActions()
     {
         $date = Carbon::now()->subMonth()->lastOfMonth();
