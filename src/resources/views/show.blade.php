@@ -6,7 +6,8 @@
 @endpush
 
 @section('admin-content')
-    <div class="row-sm-6">
+<div class="container">
+    <div class="col-sm-12">
         <div class="panel body">
             <div class="btn-group-lg" role="group">
                 @foreach ($monthOverview as $month)
@@ -17,7 +18,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-5">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
@@ -31,7 +32,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-5">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
@@ -45,7 +46,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-5">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
@@ -59,7 +60,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-5">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
@@ -73,7 +74,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-5">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
@@ -87,4 +88,5 @@
             </div>
         </div>
     </div>
+</div>
 @endsection
