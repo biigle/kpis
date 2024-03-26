@@ -12,20 +12,16 @@ class DetermineStorageUsageTest extends TestCase
 {
     public function testHandle()
     {
+        $oneGB = 1000000000;
+
         ImageTest::create([
             'attrs' => [
-                'size' => 3189539,
-                'mimetype' => 'image\/jpeg',
-                'width' => 4024,
-                'height' => 6048
+                'size' => $oneGB,
             ]
         ]);
         VideoTest::create([
             'attrs' => [
-                'size' => 3189539,
-                'mimetype' => 'video/mp4',
-                'width' => 4024,
-                'height' => 6048
+                'size' => $oneGB,
             ]
         ]);
 
@@ -34,7 +30,7 @@ class DetermineStorageUsageTest extends TestCase
         $users = DB::table('kpis_storage_usage')->where('date', '=', Carbon::now()->subMonth()->endOfMonth())->pluck('value');
 
         $this->assertCount(1, $users);
-        $this->assertEquals(8, $users[0]);
+        $this->assertEquals(2, $users[0]);
 
     }
 

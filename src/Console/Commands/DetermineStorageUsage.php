@@ -23,7 +23,7 @@ class DetermineStorageUsage extends Command
      *
      * @var string
      */
-    protected $description = 'Determines file attribute size';
+    protected $description = 'Determines file storage size in GB';
 
     /**
      * Execute the command.
@@ -44,15 +44,15 @@ class DetermineStorageUsage extends Command
     private function determineSize()
     {
         $imageStorageUsage = Image::all()->reduce(function($res, $image){
-            $res += $image->attrs ? count($image->attrs) : 0;
+            $res += $image->getSizeAttribute();
             return $res;
         }, 0);
 
         $videoStorageUsage = Video::all()->reduce(function($res, $video){
-            $res += $video->attrs ? count($video->attrs) : 0;
+            $res += $video->getSizeAttribute();
             return $res;
         }, 0);
 
-        return $imageStorageUsage + $videoStorageUsage;
+        return ($imageStorageUsage + $videoStorageUsage)/1000000000;
     }
 }
