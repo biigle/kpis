@@ -1,3 +1,5 @@
 <?php
 
-return [];
+return [
+    'token' => env('KPI_TOKEN'),
+];
