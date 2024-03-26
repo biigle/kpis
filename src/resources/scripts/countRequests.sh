@@ -25,4 +25,4 @@ done < $1
 
 res="{\"visits\": $nbrVisits, \"actions\": $nbrActions}"
 
-curl -X POST -H "Authorization: Bearer tOcUstqY7iJxBkN-LSd2PGH/!wtkvXSXpj5m6394rAED?Dd5oG/ysnA69UK!L7oW" -F "value=$res" https://biigle.de/api/v1/kpis -v
+curl -X POST -H "Authorization: Bearer <token>" -F "value=$res" https://biigle.de/api/v1/kpis -v
