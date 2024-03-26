@@ -6,39 +6,47 @@ use ApiTestCase;
 
 class RequestControllerTest extends ApiTestCase
 {
+    protected $route = "api/v1/kpis";
+
     public function testStore()
     {
+        $this->withHeader('Authorization', env('KPI_TOKEN'))
+        ->postJson($this->route, [
+            'value' => '{"visits": 94556, "actions": 21602}'
+            ])->assertStatus(200);
+    }
 
-        $route = "api/v1/kpis";
-
+    public function testStoreMissingToken()
+    {
         // missing token
-        $this->json('post', $route, [
+        $this->json('post', $this->route, [
             'value' => '{"visits": 94556, "actions": 21602}'
             ])->assertStatus(401);
+    }
 
+    public function testStoreWrongToken()
+    {
         // wrong token
         $this->withHeader('Authorization', 'Bearer 123')
-        ->json('post', $route, [
+        ->json('post', $this->route, [
             'value' => '{"visits": 94556, "actions": 21602}'
             ])->assertStatus(403);
-
+    }
+    public function testStoreInvalidData()
+    {
         // invalid data
         $this->withHeader('Authorization', env('KPI_TOKEN'))
-        ->postJson($route, [
+        ->postJson($this->route, [
             'value' => 'abc'
             ])->assertStatus(422);
-
+    }
+    public function testStoreBigInt()
+    {
+        $maxBigInt = "9223372036854775807";
         $this->withHeader('Authorization', env('KPI_TOKEN'))
-        ->postJson($route, [
-            'value' => '{"visits": 94556, "actions": 21602}'
-            ])->assertStatus(200);
-
-        // max value string length
-        $this->withHeader('Authorization', env('KPI_TOKEN'))
-        ->postJson($route, [
-            'value' => '{"visits": '.PHP_INT_MAX .', "actions": '.PHP_INT_MAX.'}'
-            ])->assertStatus(200);
-
+            ->postJson($this->route, [
+                'value' => '{"visits": '. $maxBigInt .', "actions": '. $maxBigInt.'}'
+                ])->assertStatus(200);
     }
 
 }
