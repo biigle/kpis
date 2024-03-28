@@ -1,6 +1,6 @@
 <?php
 
-namespace Biigle\Modules\Kpis;
+namespace Biigle\Tests\Modules\Kpis;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;

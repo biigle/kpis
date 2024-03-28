@@ -1,6 +1,6 @@
 <?php
 
-namespace Biigle\Modules\Tests;
+namespace Biigle\Tests\Modules\Kpis;
 
 use TestCase;
 use Carbon\Carbon;
