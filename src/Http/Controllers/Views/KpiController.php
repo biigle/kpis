@@ -18,8 +18,9 @@ class KpiController extends Controller
      */
     public function show($idx = 6)
     {
-        // If index is not in range, set it on index of last month
-        $idx = min(6, max(0, $idx));
+        if($idx == 0 || $idx > 6) {
+            abort(404);
+        }
 
         $date = Carbon::now()->subMonths(6 - $idx);
         $year = $date->year;
