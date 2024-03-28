@@ -16,8 +16,8 @@ class RequestController extends Controller
     */
     public function store(StoreRequest $request)
     {
-        $res = json_decode($request->get('value'), true);
-        Requests::save($res['actions'], $res['visits']);
-        return;
+        $visits = $visits = $request->input('visits');
+        $actions = $visits = $request->input('actions');
+        Requests::save($actions, $visits);
     }
 }
