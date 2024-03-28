@@ -10,8 +10,7 @@ class Storage
     public static function getStorageUsage($year, $month)
     {
         $date = Carbon::createFromDate($year, $month, 1)->endOfMonth()->toDateString();
-        $res = count(DB::table('kpis_storage_usage')->where('date', '=', $date)->pluck('value')) != 0 ?
-        DB::table('kpis_storage_usage')->where('date', '=', $date)->pluck('value')[0] : 0;
+        $res = DB::table('kpis_storage_usage')->where('date', '=', $date)->sum('value');
         return $res;
     }
 }
