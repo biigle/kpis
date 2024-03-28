@@ -12,8 +12,8 @@
             <div class="btn-group-lg" role="group">
                 @foreach ($monthOverview as $month)
                     <a id="btn"
-                        href="{{ substr(URL::current(), 0, strrpos(URL::current(), 'kpis') + 4) . "/$loop->iteration" }}"
-                        class="btn btn-default @if ($idx == $loop->iteration) active @endif">{{ $month }}</a>
+                        href="{{ substr(URL::current(), 0, -1) . "$loop->iteration" }}"
+                        class="btn btn-default @if (URL::current()[-1] == $loop->iteration) active @endif">{{ $month }}</a>
                 @endforeach
             </div>
         </div>

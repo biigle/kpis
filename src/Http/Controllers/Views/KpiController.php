@@ -44,7 +44,6 @@ class KpiController extends Controller
             'userNbr' => $user,
             'storage' => $storage,
             'monthOverview' => $monthOverview,
-            'idx' => $idx,
         ]);
 
     }
