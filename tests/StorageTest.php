@@ -2,9 +2,10 @@
 
 namespace Biigle\Tests\Modules\Kpis;
 
-use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 use TestCase;
+use Carbon\Carbon;
+use Biigle\Modules\Kpis\Storage;
+use Illuminate\Support\Facades\DB;
 
 class StorageTest extends TestCase
 {
