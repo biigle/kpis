@@ -56,5 +56,15 @@ class RequestControllerTest extends ApiTestCase
             $this->route,
             ['visits' => 'abc', 'actions' => 'def']
         )->assertStatus(422);
+
+        $this->withHeader('Authorization', "Bearer {$this->testToken}")
+        ->postJson(
+            $this->route, []
+        )->assertStatus(422);
+
+        $this->withHeader('Authorization', "Bearer {$this->testToken}")
+        ->postJson(
+            $this->route, ['abc']
+        )->assertStatus(422);
     }
 }
