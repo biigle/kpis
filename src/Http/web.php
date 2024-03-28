@@ -1,7 +1,7 @@
 <?php
 
 $router->get(
-    'admin/kpis/{idx?}',
+    'admin/kpis/{idx}',
     [
    'middleware' => 'auth',
    'uses' => 'KpiController@show',
