@@ -9,11 +9,23 @@ use Biigle\Http\Controllers\Controller;
 class RequestController extends Controller
 {
     /**
-     * Stores action and visit counts
+     * Saves action/visit count from cron job
      *
-     * @param StoreRequest $request containing the json object
+     * @api {post} /kpis
+     * @apiPermission token-verifyed
+     * @apiDescription Saves actions/visits of a serverlog file
      *
-    */
+     * @apiParamExample {JSON} Request example (JSON):
+     * {
+     *    {
+     *       "visits": 10,
+     *       "actions": 20
+     *    }
+     * }
+     *
+     *
+     * @param StoreRequest $request
+     */
     public function store(StoreRequest $request)
     {
         $visits = $visits = $request->input('visits');

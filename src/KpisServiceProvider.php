@@ -46,7 +46,7 @@ class KpisServiceProvider extends ServiceProvider
                 //
             ],
             'apidoc' => [
-               //__DIR__.'/Http/Controllers/Api/',
+               __DIR__.'/Http/Controllers/Api/',
             ],
         ]);
 
