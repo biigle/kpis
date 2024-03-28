@@ -36,23 +36,13 @@ class DetermineStorageUsage extends Command
         
         $date = Carbon::now()->subMonth()->endOfMonth()->toDateString();
 
-        DB::transaction(function () use ($size, $date) {
-            DB::table('kpis_storage_usage')->insert(['date' => $date, 'value' => $size]);
-        });
+        DB::table('kpis_storage_usage')->insert(['date' => $date, 'value' => $size]);
     }
 
     private function determineSize()
     {
-        $imageStorageUsage = Image::all()->reduce(function($res, $image){
-            $res += $image->getSizeAttribute();
-            return $res;
-        }, 0);
-
-        $videoStorageUsage = Video::all()->reduce(function($res, $video){
-            $res += $video->getSizeAttribute();
-            return $res;
-        }, 0);
-
+        $imageStorageUsage = Image::sum(DB::raw("(attrs->>'size')::bigint"));
+        $videoStorageUsage = Video::sum(DB::raw("(attrs->>'size')::bigint"));
         return ($imageStorageUsage + $videoStorageUsage)/1000000000;
     }
 }

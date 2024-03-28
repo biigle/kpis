@@ -21,7 +21,7 @@ class CountUser extends Command
      *
      * @var string
      */
-    protected $description = 'Counts active user for each day';
+    protected $description = 'Counts active users of the previous day';
 
     /**
      * Execute the command.
@@ -32,15 +32,13 @@ class CountUser extends Command
     {
         $nbrUser = $this->countUser();
 
-        DB::transaction(function () use ($nbrUser) {
-            DB::table('kpis_users')->insert(['date' => Carbon::yesterday()->toDateString(), 'value' => $nbrUser]);
-        });
+        DB::table('kpis_users')->insert(['date' => Carbon::yesterday()->toDateString(), 'value' => $nbrUser]);
     }
 
     private function countUser()
     {
         $today = Carbon::yesterday()->toDateString();
 
-        return User::where('login_at', '=', $today)->get()->count();
+        return User::where('login_at', '=', $today)->count();
     }
 }

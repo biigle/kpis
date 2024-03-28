@@ -34,15 +34,13 @@ class CountUniqueUser extends Command
 
         $date = Carbon::now()->subMonth()->endOfMonth()->toDateString();
 
-        DB::transaction(function () use ($nbrUser, $date) {
-            DB::table('kpis_unique_users')->insert(['date' => $date, 'value' => $nbrUser]);
-        });
+        DB::table('kpis_unique_users')->insert(['date' => $date, 'value' => $nbrUser]);
     }
 
     private function countUniqueUser()
     {
         $fromDate = Carbon::now()->subMonth()->startOfMonth()->toDateString();
         $tillDate = Carbon::now()->subMonth()->endOfMonth()->toDateString();
-        return User::whereBetween('login_at', [$fromDate, $tillDate])->get()->count();
+        return User::whereBetween('login_at', [$fromDate, $tillDate])->count();
     }
 }
