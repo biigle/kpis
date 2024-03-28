@@ -18,16 +18,16 @@ class Requests
 
     public static function getActions($year, $month)
     {
-        $date = Carbon::createFromDate($year, $month, 1)->endOfMonth()->toDateString();
-        $res =  count(DB::table('kpis_actions')->where('date', '=', $date)->pluck('value')) != 0 ?
-        DB::table('kpis_actions')->where('date', '=', $date)->pluck('value')[0] : 0;
+        $start = Carbon::createFromDate($year, $month, 1)->toDateString();
+        $end = Carbon::createFromDate($year, $month, 1)->endOfMonth()->toDateString();
+        $res = DB::table('kpis_actions')->whereBetween('date', [$start, $end])->sum('value');
         return $res;
     }
     public static function getVisits($year, $month)
     {
-        $date = Carbon::createFromDate($year, $month, 1)->endOfMonth()->toDateString();
-        $res =  count(DB::table('kpis_visits')->where('date', '=', $date)->pluck('value')) != 0 ?
-        DB::table('kpis_visits')->where('date', '=', $date)->pluck('value')[0] : 0;
+        $start = Carbon::createFromDate($year, $month, 1)->toDateString();
+        $end = Carbon::createFromDate($year, $month, 1)->endOfMonth()->toDateString();
+        $res = DB::table('kpis_visits')->whereBetween('date', [$start, $end])->sum('value');
         return $res;
     }
 }
