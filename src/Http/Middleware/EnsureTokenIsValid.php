@@ -19,7 +19,7 @@ class EnsureTokenIsValid
             return response('Unauthorized', 401);
         }
 
-        if ($request->header('authorization') !== config('kpis.token')) {
+        if ($request->header('authorization') !== "Bearer ". config('kpis.token')) {
             return response('Unauthorized.', 403);
         }
 
