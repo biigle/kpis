@@ -65,11 +65,11 @@ class KpisServiceProvider extends ServiceProvider
                 $schedule = app(Schedule::class);
 
                 $schedule->command(CountUniqueUser::class)
-                    ->monthlyOn(1, '0:0')
+                    ->monthly()
                     ->onOneServer();
 
                 $schedule->command(DetermineStorageUsage::class)
-                    ->monthlyOn(1, '0:0')
+                    ->monthly()
                     ->onOneServer();
 
                 $schedule->command(CountUser::class)
