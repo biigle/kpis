@@ -1,28 +1,33 @@
 #!/bin/bash
+#
+# Usage: ./countRequests.sh logfile.log.gz
 
-nbrVisits=0
-nbrActions=0
+TOKEN=""
+BASE_URL="https://biigle.de"
 
-while IFS= read -r line; do
-    # ignore bot and security check requests
-    bot="[bB]ot|OpenVAS-VT";
-    if [[ "$line" =~ $bot ]]; then
-        continue;
-    fi
-    
-    browser="Chrome|Edg|Safari|OPR|Firefox";
-    if [[ "$line" =~ $browser ]]; then
-    # filter http code (2xx) by using regex of ' <http code> XY ' 
-      code="[[:space:]]2[[:digit:]]{2}[[:space:]][[:digit:]]+[[:space:]]"
-      if [[ "$line" =~ "GET" && $line =~ $code ]]; then
-        ((nbrVisits++))
-      requests="PUT|POST|DELETE"
-      elif [[ "$line" =~ $requests ]]; then
-        ((nbrActions++))
-      fi
-    fi
-done < $1
+compute_visits() {
+    zgrep -F -e Chrome -e Firefox -e Safari -e OPR -e Edg $1 \
+        | cut -d ' ' -f 6,7,9 \
+        | cut -c 2-8 \
+        | grep -F "GET / 2" \
+        | wc -l
+}
 
-res="{\"visits\": $nbrVisits, \"actions\": $nbrActions}"
 
-curl -X POST -H "Authorization: Bearer <token>" -F "value=$res" https://biigle.de/api/v1/kpis -v
+compute_actions() {
+    # The "@" will appear in API requests with token authentication.
+    zgrep -F -e PUT -e POST -e DELETE $1 \
+        | grep -F -e Chrome -e Firefox -e Safari -e OPR -e Edg -e "@" \
+        | grep -F -v heartbeat \
+        | wc -l
+}
+
+nbrVisits=$(compute_visits $1)
+nbrActions=$(compute_actions $1)
+
+curl \
+    -X POST \
+    -H "Authorization: Bearer $TOKEN" \
+    -H "Content-Type: application/json" \
+    -d "{\"visits\": $nbrVisits, \"actions\": $nbrActions}" \
+    ${BASE_URL}/api/v1/kpis
