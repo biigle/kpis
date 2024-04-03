@@ -27,7 +27,7 @@
             </div>
             <div class="panel-body">
                 <p class="h1 text-center">
-                    {{ $actions }}
+                    {{ number_format($actions) }}
                 </p>
             </div>
         </div>
@@ -41,7 +41,7 @@
             </div>
             <div class="panel-body">
                 <p class="h1 text-center">
-                    {{ $visits }}
+                    {{ number_format($visits) }}
                 </p>
             </div>
         </div>
@@ -55,7 +55,7 @@
             </div>
             <div class="panel-body">
                 <p class="h1 text-center">
-                    {{ $uuserNbr }}
+                    {{ number_format($uuserNbr) }}
                 </p>
             </div>
         </div>
@@ -69,7 +69,7 @@
             </div>
             <div class="panel-body">
                 <p class="h1 text-center">
-                    {{ $userNbr }}
+                    {{ number_format($userNbr) }}
                 </p>
             </div>
         </div>
@@ -83,7 +83,7 @@
             </div>
             <div class="panel-body">
                 <p class="h1 text-center">
-                    {{ $storage }} GB
+                    {{ number_format($storage) }} GB
                 </p>
             </div>
         </div>
