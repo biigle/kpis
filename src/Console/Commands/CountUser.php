@@ -37,8 +37,8 @@ class CountUser extends Command
 
     private function countUser()
     {
-        $today = Carbon::yesterday()->toDateString();
+        $yesterday = Carbon::yesterday()->toDateString();
 
-        return User::where('login_at', '=', $today)->count();
+        return User::where('login_at', '=', $yesterday)->count();
     }
 }
