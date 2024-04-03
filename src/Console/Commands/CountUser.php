@@ -30,15 +30,9 @@ class CountUser extends Command
      */
     public function handle()
     {
-        $nbrUser = $this->countUser();
-
-        DB::table('kpis_users')->insert(['date' => Carbon::yesterday()->toDateString(), 'value' => $nbrUser]);
-    }
-
-    private function countUser()
-    {
         $yesterday = Carbon::yesterday()->toDateString();
+        $nbrUser = User::where('login_at', '=', $yesterday)->count();
 
-        return User::where('login_at', '=', $yesterday)->count();
+        DB::table('kpis_users')->insert(['date' => $yesterday, 'value' => $nbrUser]);
     }
 }

@@ -50,10 +50,6 @@ class KpisServiceProvider extends ServiceProvider
             ],
         ]);
 
-        $this->publishes([
-            __DIR__.'/public/assets' => public_path('vendor/kpis'),
-        ], 'public');
-
         if ($this->app->runningInConsole()) {
             $this->commands([
                 CountUniqueUser::class,
