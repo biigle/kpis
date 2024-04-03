@@ -22,8 +22,8 @@ class RequestController extends Controller
      *
      * @apiParamExample {JSON} Request example (JSON):
      * {
-     *       "visits": 10,
-     *       "actions": 20
+     *     "visits": 10,
+     *     "actions": 20
      * }
      *
      *
