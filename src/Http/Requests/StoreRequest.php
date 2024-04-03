@@ -17,6 +17,6 @@ class StoreRequest extends FormRequest
         return [
             'actions' => 'required|integer',
             'visits' => 'required|integer'
-            ];
+        ];
     }
 }
