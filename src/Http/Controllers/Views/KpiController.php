@@ -22,7 +22,7 @@ class KpiController extends Controller
             abort(404);
         }
 
-        $date = Carbon::now()->subMonths(6 - $idx);
+        $date = Carbon::now()->subMonths(7 - $idx);
         $year = $date->year;
         $month = $date->month;
 
