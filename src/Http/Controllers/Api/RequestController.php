@@ -1,6 +1,6 @@
 <?php
 
-namespace Biigle\Modules\Kpis\Http\Controllers;
+namespace Biigle\Modules\Kpis\Http\Controllers\Api;
 
 use Biigle\Modules\Kpis\Http\Requests\StoreRequest;
 use Biigle\Modules\Kpis\Requests;
