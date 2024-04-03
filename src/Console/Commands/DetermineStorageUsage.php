@@ -2,7 +2,6 @@
 
 namespace Biigle\Modules\Kpis\Console\Commands;
 
-use Biigle\User;
 use Biigle\Image;
 use Biigle\Video;
 use Carbon\Carbon;
