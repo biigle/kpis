@@ -12,15 +12,15 @@ class RequestController extends Controller
      * Saves action/visit count from cron job
      *
      * @api {post} /kpis
-     * @apiPermission token-verifyed
-     * @apiDescription Saves actions/visits of a serverlog file
+     * @apiPermission kpi-token
+     * @apiDescription Save actions/visits KPIs
+     * @apiParam {Number} visits The number of GET requests to `/` (without bots).
+     * @apiParam {Number} actions The number of PUT/POST/DELETE requests (without bots and heartbeat).
      *
      * @apiParamExample {JSON} Request example (JSON):
      * {
-     *    {
      *       "visits": 10,
      *       "actions": 20
-     *    }
      * }
      *
      *
@@ -28,8 +28,8 @@ class RequestController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $visits = $visits = $request->input('visits');
-        $actions = $visits = $request->input('actions');
-        Requests::save($actions, $visits);
+        $visits = $request->input('visits');
+        $actions = $request->input('actions');
+        Requests::save($visits, $actions);
     }
 }
