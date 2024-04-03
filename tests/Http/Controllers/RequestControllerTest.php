@@ -29,10 +29,10 @@ class RequestControllerTest extends ApiTestCase
             ['visits' => '94556', 'actions' => '21602']
         )->assertStatus(200);
 
-        $date = Carbon::now()->toDateString();
+        $date = Carbon::yesterday()->toDateString();
 
-        $actions = DB::table('kpis_actions')->where('date', '=', $date)->pluck('value')[0];
-        $visits = DB::table('kpis_visits')->where('date', '=', $date)->pluck('value')[0];
+        $actions = DB::table('kpis_actions')->where('date', '=', $date)->first()->value;
+        $visits = DB::table('kpis_visits')->where('date', '=', $date)->first()->value;
 
         $this->assertEquals(94556, $visits);
         $this->assertEquals(21602, $actions);
