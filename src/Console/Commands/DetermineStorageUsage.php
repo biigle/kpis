@@ -48,6 +48,6 @@ class DetermineStorageUsage extends Command
         $imageStorageUsage = Image::sum(DB::raw("(attrs->>'size')::bigint"));
         $videoStorageUsage = Video::sum(DB::raw("(attrs->>'size')::bigint"));
 
-        return ($imageStorageUsage + $videoStorageUsage) / self::GB;
+        return round(($imageStorageUsage + $videoStorageUsage) / self::GB);
     }
 }

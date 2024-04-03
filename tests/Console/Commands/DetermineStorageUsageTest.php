@@ -16,7 +16,7 @@ class DetermineStorageUsageTest extends TestCase
 
         ImageTest::create([
             'attrs' => [
-                'size' => $oneGB,
+                'size' => $oneGB - 1, // test rounding
             ]
         ]);
         VideoTest::create([
