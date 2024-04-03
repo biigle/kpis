@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\DB;
 class DetermineStorageUsage extends Command
 {
     /**
+     * GB in byte.
+     */
+    const GB = 1000000000;
+
+    /**
      * The console command name.
      *
      * @var string
@@ -32,7 +37,7 @@ class DetermineStorageUsage extends Command
     public function handle()
     {
         $size = $this->getSizeInGB();
-        
+
         $date = Carbon::now()->subMonth()->endOfMonth()->toDateString();
 
         DB::table('kpis_storage_usage')->insert(['date' => $date, 'value' => $size]);
@@ -40,9 +45,9 @@ class DetermineStorageUsage extends Command
 
     private function getSizeInGB()
     {
-        $byte = 1000000000;
         $imageStorageUsage = Image::sum(DB::raw("(attrs->>'size')::bigint"));
         $videoStorageUsage = Video::sum(DB::raw("(attrs->>'size')::bigint"));
-        return ($imageStorageUsage + $videoStorageUsage)/$byte;
+
+        return ($imageStorageUsage + $videoStorageUsage) / self::GB;
     }
 }

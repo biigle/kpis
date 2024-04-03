@@ -13,7 +13,7 @@ class RequestsTest extends TestCase
     {
         Requests::save(100, 50);
 
-        $date = Carbon::now()->toDateString();
+        $date = Carbon::yesterday()->toDateString();
 
         $actions = DB::table('kpis_actions')->where('date', '=', $date)->pluck('value');
         $visits = DB::table('kpis_visits')->where('date', '=', $date)->pluck('value');
@@ -30,7 +30,7 @@ class RequestsTest extends TestCase
 
         Requests::save($maxBigInt, $maxBigInt);
 
-        $date = Carbon::now()->toDateString();
+        $date = Carbon::yesterday()->toDateString();
 
         $actions = DB::table('kpis_actions')->where('date', '=', $date)->pluck('value');
         $visits = DB::table('kpis_visits')->where('date', '=', $date)->pluck('value');

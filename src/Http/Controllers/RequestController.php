@@ -14,9 +14,9 @@ class RequestController extends Controller
      * @apiDefine kpi-tpken KPI Token
      * The request must provide the token configured in the KPI module.
      *
-     * @api {post} /kpis
+     * @api {post} /kpis Save actions/visits KPIs
      * @apiPermission kpi-token
-     * @apiDescription Save actions/visits KPIs
+     * @apiDescription The submitted values are stored for the previous day.
      * @apiParam {Number} visits The number of GET requests to `/` (without bots).
      * @apiParam {Number} actions The number of PUT/POST/DELETE requests (without bots and heartbeat).
      *
