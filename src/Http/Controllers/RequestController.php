@@ -10,6 +10,9 @@ class RequestController extends Controller
 {
     /**
      * Saves action/visit count from cron job
+     * 
+     * @apiDefine kpi-tpken KPI Token
+     * The request must provide the token configured in the KPI module.
      *
      * @api {post} /kpis
      * @apiPermission kpi-token
