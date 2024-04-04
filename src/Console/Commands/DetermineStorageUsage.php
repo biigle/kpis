@@ -38,7 +38,7 @@ class DetermineStorageUsage extends Command
     {
         $size = $this->getSizeInGB();
 
-        $date = Carbon::now()->subMonth()->endOfMonth()->toDateString();
+        $date = Carbon::now()->subMonth()->endOfMonth();
 
         DB::table('kpis_storage_usage')->insert(['date' => $date, 'value' => $size]);
     }

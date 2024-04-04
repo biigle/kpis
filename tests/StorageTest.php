@@ -16,7 +16,7 @@ class StorageTest extends TestCase
 
         $noFiles = Storage::getStorageUsage($date->year, $date->month);
 
-        DB::table('kpis_storage_usage')->insert(['date' => $date->toDateString(), 'value' => 100]);
+        DB::table('kpis_storage_usage')->insert(['date' => $date, 'value' => 100]);
 
         $size = Storage::getStorageUsage($date->year, $date->month);
 

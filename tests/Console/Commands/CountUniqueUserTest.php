@@ -11,9 +11,9 @@ class CountUniqueUserTest extends TestCase
 {
     public function testHandle()
     {
-        UserTest::create(['login_at' => Carbon::now()->subMonth()->firstOfMonth()->toDateString()]);
-        UserTest::create(['login_at' => Carbon::now()->subMonth()->toDateString()]);
-        UserTest::create(['login_at' => Carbon::now()->subMonth()->endOfMonth()->toDateString()]);
+        UserTest::create(['login_at' => Carbon::now()->subMonth()->firstOfMonth()]);
+        UserTest::create(['login_at' => Carbon::now()->subMonth()]);
+        UserTest::create(['login_at' => Carbon::now()->subMonth()->endOfMonth()]);
 
         $this->artisan('kpis:count-unique-user')->assertExitCode(0);
 
@@ -28,8 +28,8 @@ class CountUniqueUserTest extends TestCase
 
     public function testLoginWasNotLastMonth()
     {
-        UserTest::create(['login_at' => Carbon::now()->subMonth()->firstOfMonth()->toDateString()]);
-        UserTest::create(['login_at' => Carbon::now()->subMonths(2)->endOfMonth()->toDateString()]);
+        UserTest::create(['login_at' => Carbon::now()->subMonth()->firstOfMonth()]);
+        UserTest::create(['login_at' => Carbon::now()->subMonths(2)->endOfMonth()]);
 
         $this->artisan('kpis:count-unique-user')->assertExitCode(0);
 
