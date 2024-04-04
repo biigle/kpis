@@ -30,8 +30,9 @@ class CountUser extends Command
      */
     public function handle()
     {
-        $yesterday = Carbon::yesterday()->toDateString();
-        $nbrUser = User::where('login_at', '=', $yesterday)->count();
+        $yesterday = Carbon::yesterday();
+        $today = Carbon::today();
+        $nbrUser = User::whereBetween('login_at', [$yesterday, $today])->count();
 
         DB::table('kpis_users')->insert(['date' => $yesterday, 'value' => $nbrUser]);
     }

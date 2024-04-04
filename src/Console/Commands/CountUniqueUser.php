@@ -30,15 +30,14 @@ class CountUniqueUser extends Command
      */
     public function handle()
     {
-        $fromDate = Carbon::now()->subMonth()->startOfMonth()->toDateString();
-        $tillDate = Carbon::now()->subMonth()->endOfMonth()->toDateString();
+        $nbrUser = User::whereBetween('login_at', [
+            Carbon::now()->subMonth()->startOfMonth(),
+            Carbon::now()->startOfMonth(),
+        ])->count();
 
-        $nbrUser = User::whereBetween('login_at', [$fromDate, $tillDate])->count();
-
-        DB::table('kpis_unique_users')->insert(['date' => $tillDate, 'value' => $nbrUser]);
-    }
-
-    private function countUniqueUser()
-    {
+        DB::table('kpis_unique_users')->insert([
+            'date' => Carbon::now()->subMonth()->endOfMonth(),
+            'value' => $nbrUser,
+        ]);
     }
 }
