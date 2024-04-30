@@ -12,7 +12,10 @@ class StorageTest extends TestCase
     public function testGetStorage()
     {
 
-        $date = Carbon::now()->subMonth()->lastOfMonth();
+        $date = Carbon::now()
+            ->settings(['monthOverflow' => false])
+            ->subMonth()
+            ->lastOfMonth();
 
         $noFiles = Storage::getStorageUsage($date->year, $date->month);
 

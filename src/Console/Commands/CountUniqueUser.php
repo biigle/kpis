@@ -30,13 +30,15 @@ class CountUniqueUser extends Command
      */
     public function handle()
     {
+        $now = Carbon::now()->toImmutable()->settings(['monthOverflow' => false]);
+
         $nbrUser = User::whereBetween('login_at', [
-            Carbon::now()->subMonth()->startOfMonth(),
-            Carbon::now()->startOfMonth(),
+            $now->subMonth()->startOfMonth(),
+            $now->startOfMonth(),
         ])->count();
 
         DB::table('kpis_unique_users')->insert([
-            'date' => Carbon::now()->subMonth()->endOfMonth(),
+            'date' => $now->subMonth()->endOfMonth(),
             'value' => $nbrUser,
         ]);
     }
