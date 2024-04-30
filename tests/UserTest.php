@@ -10,10 +10,11 @@ use Illuminate\Support\Facades\DB;
 class UserTest extends TestCase
 {
 
-    public function testGetUser(){
-
-        $first = Carbon::now()->subMonth()->firstOfMonth();
-        $last = Carbon::now()->subMonth()->endOfMonth();
+    public function testGetUser()
+    {
+        $now = Carbon::now()->toImmutable()->settings(['monthOverflow' => false]);
+        $first = $now->subMonth()->firstOfMonth();
+        $last = $now->subMonth()->endOfMonth();
 
         $noUserCounted = User::getUser($first->year, $first->month);
 
@@ -27,7 +28,10 @@ class UserTest extends TestCase
     }
 
     public function testGetUniqueUser(){
-        $date = Carbon::now()->subMonth()->endOfMonth();
+        $date = Carbon::now()
+            ->settings(['monthOverflow' => false])
+            ->subMonth()
+            ->endOfMonth();
 
         $noUserCounted = User::getUniqueUser($date->year, $date->month);
 

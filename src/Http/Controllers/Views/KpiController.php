@@ -22,7 +22,8 @@ class KpiController extends Controller
             abort(404);
         }
 
-        $date = Carbon::now()->subMonths(7 - $idx);
+        $now = Carbon::now()->toImmutable()->settings(['monthOverflow' => false]);
+        $date = $now->subMonths(7 - $idx);
         $year = $date->year;
         $month = $date->month;
 
@@ -34,7 +35,7 @@ class KpiController extends Controller
 
         $monthOverview = [];
         for($i = 6;$i >= 1;$i--) {
-            $monthOverview[] = Carbon::now()->subMonths($i)->format('M');
+            $monthOverview[] = $now->subMonths($i)->format('M');
         }
 
         return view('kpis::show', [

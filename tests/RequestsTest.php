@@ -44,7 +44,10 @@ class RequestsTest extends TestCase
 
     public function testGetActions()
     {
-        $date = Carbon::now()->subMonth()->lastOfMonth();
+        $date = Carbon::now()
+            ->settings(['monthOverflow' => false])
+            ->subMonth()
+            ->lastOfMonth();
 
         DB::table('kpis_actions')->insert(['date' => $date, 'value' => 10]);
 
@@ -55,7 +58,10 @@ class RequestsTest extends TestCase
 
     public function testGetVisits()
     {
-        $date = Carbon::now()->subMonth()->lastOfMonth();
+        $date = Carbon::now()
+            ->settings(['monthOverflow' => false])
+            ->subMonth()
+            ->lastOfMonth();
 
         DB::table('kpis_visits')->insert(['date' => $date, 'value' => 10]);
 
