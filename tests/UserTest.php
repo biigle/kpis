@@ -23,8 +23,8 @@ class UserTest extends TestCase
 
         $count = User::getUser($first->year, $first->month);
 
-        $this->assertEquals(0, $noUserCounted);
-        $this->assertEquals(20, $count);
+        $this->assertSame(0, $noUserCounted);
+        $this->assertSame('20', $count);
     }
 
     public function testGetUniqueUser(){
@@ -39,8 +39,8 @@ class UserTest extends TestCase
 
         $count = User::getUniqueUser($date->year, $date->month);
 
-        $this->assertEquals(0, $noUserCounted);
-        $this->assertEquals(10, $count);
+        $this->assertSame(0, $noUserCounted);
+        $this->assertSame('10', $count);
     }
 }
 

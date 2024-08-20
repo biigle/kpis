@@ -34,8 +34,8 @@ class RequestControllerTest extends ApiTestCase
         $actions = DB::table('kpis_actions')->where('date', '=', $date)->first()->value;
         $visits = DB::table('kpis_visits')->where('date', '=', $date)->first()->value;
 
-        $this->assertEquals(94556, $visits);
-        $this->assertEquals(21602, $actions);
+        $this->assertSame(94556, $visits);
+        $this->assertSame(21602, $actions);
     }
 
     public function testStoreMissingToken()

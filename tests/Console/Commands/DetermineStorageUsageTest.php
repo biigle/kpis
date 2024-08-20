@@ -36,7 +36,7 @@ class DetermineStorageUsageTest extends TestCase
             ->pluck('value');
 
         $this->assertCount(1, $users);
-        $this->assertEquals(2, $users[0]);
+        $this->assertSame(2, $users[0]);
 
     }
 
@@ -59,6 +59,6 @@ class DetermineStorageUsageTest extends TestCase
             ->pluck('value');
 
         $this->assertCount(1, $users);
-        $this->assertEquals(0, $users[0]);
+        $this->assertSame(0, $users[0]);
     }
 }
