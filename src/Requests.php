@@ -18,7 +18,7 @@ class Requests
 
     public static function getActions($year, $month)
     {
-        $start = Carbon::createFromDate($year, $month)->startOfMonth();
+        $start = Carbon::create($year, $month)->startOfMonth();
         $end = $start->copy()->addMonth();
         $res = DB::table('kpis_actions')->whereBetween('date', [$start, $end])->sum('value');
 
@@ -26,7 +26,7 @@ class Requests
     }
     public static function getVisits($year, $month)
     {
-        $start = Carbon::createFromDate($year, $month)->startOfMonth();
+        $start = Carbon::create($year, $month)->startOfMonth();
         $end = $start->copy()->addMonth();
         $res = DB::table('kpis_visits')->whereBetween('date', [$start, $end])->sum('value');
 
