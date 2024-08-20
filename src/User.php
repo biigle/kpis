@@ -9,8 +9,8 @@ class User
 {
     public static function getUser($year, $month)
     {
-        $first = Carbon::createFromDate($year, $month)->startOfMonth();
-        $last = $first->copy()->addMonth();
+        $first = Carbon::create($year, $month)->startOfMonth();
+        $last = $first->copy()->endOfMonth();
 
         return DB::table('kpis_users')
             ->whereBetween('date', [$first, $last])

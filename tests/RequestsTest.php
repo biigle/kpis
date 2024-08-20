@@ -56,6 +56,12 @@ class RequestsTest extends TestCase
         $this->assertEquals(10, $count);
     }
 
+    public function testGetActionsOverflow()
+    {
+        Carbon::setTestNow(Carbon::parse('2024-07-31T05:45:23Z'));
+        $this->testGetActions();
+    }
+
     public function testGetVisits()
     {
         $date = Carbon::now()
@@ -68,5 +74,11 @@ class RequestsTest extends TestCase
         $count = Requests::getVisits($date->year, $date->month);
 
         $this->assertEquals(10, $count);
+    }
+
+    public function testGetVisitsOverflow()
+    {
+        Carbon::setTestNow(Carbon::parse('2024-07-31T05:45:23Z'));
+        $this->testGetVisits();
     }
 }

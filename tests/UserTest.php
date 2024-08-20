@@ -27,6 +27,12 @@ class UserTest extends TestCase
         $this->assertEquals(20, $count);
     }
 
+    public function testGetUserOverflow()
+    {
+        Carbon::setTestNow(Carbon::parse('2024-07-31T05:45:23Z'));
+        $this->testGetUser();
+    }
+
     public function testGetUniqueUser(){
         $date = Carbon::now()
             ->settings(['monthOverflow' => false])
