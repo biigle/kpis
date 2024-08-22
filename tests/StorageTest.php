@@ -6,6 +6,7 @@ use TestCase;
 use Carbon\Carbon;
 use Biigle\Modules\Kpis\Storage;
 use Illuminate\Support\Facades\DB;
+use Brick\Math\BigInteger;
 
 class StorageTest extends TestCase
 {
@@ -23,7 +24,7 @@ class StorageTest extends TestCase
 
         $size = Storage::getStorageUsage($date->year, $date->month);
 
-        $this->assertSame(0, $noFiles);
-        $this->assertSame('100', $size);
+        $this->assertEquals(BigInteger::of(0), $noFiles);
+        $this->assertEquals(BigInteger::of(100), $size);
     }
 }

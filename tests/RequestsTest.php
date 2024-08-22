@@ -6,6 +6,7 @@ use TestCase;
 use Carbon\Carbon;
 use Biigle\Modules\Kpis\Requests;
 use Illuminate\Support\Facades\DB;
+use Brick\Math\BigInteger;
 
 class RequestsTest extends TestCase
 {
@@ -53,7 +54,7 @@ class RequestsTest extends TestCase
 
         $count = Requests::getActions($date->year, $date->month);
 
-        $this->assertSame('10', $count);
+        $this->assertEquals(BigInteger::of(10), $count);
     }
 
     public function testGetVisits()
@@ -67,6 +68,6 @@ class RequestsTest extends TestCase
 
         $count = Requests::getVisits($date->year, $date->month);
 
-        $this->assertSame('10', $count);
+        $this->assertEquals(BigInteger::of(10), $count);
     }
 }

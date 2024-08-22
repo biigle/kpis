@@ -2,6 +2,7 @@
 
 namespace Biigle\Modules\Kpis;
 
+use Brick\Math\BigInteger;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -12,9 +13,11 @@ class User
         $first = Carbon::createFromDate($year, $month)->startOfMonth();
         $last = $first->copy()->addMonth();
 
-        return DB::table('kpis_users')
+        $res = DB::table('kpis_users')
             ->whereBetween('date', [$first, $last])
             ->sum('value');
+
+        return BigInteger::of($res);
     }
 
     public static function getUniqueUser($year, $month)
@@ -22,6 +25,6 @@ class User
         $date = Carbon::createFromDate($year, $month, 1)->endOfMonth();
         $res =  DB::table('kpis_unique_users')->where('date', '=', $date)->sum('value');
 
-        return $res;
+        return BigInteger::of($res);
     }
 }
