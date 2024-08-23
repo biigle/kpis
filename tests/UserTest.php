@@ -6,7 +6,6 @@ use TestCase;
 use Carbon\Carbon;
 use Biigle\Modules\Kpis\User;
 use Illuminate\Support\Facades\DB;
-use Brick\Math\BigInteger;
 
 class UserTest extends TestCase
 {
@@ -24,8 +23,8 @@ class UserTest extends TestCase
 
         $count = User::getUser($first->year, $first->month);
 
-        $this->assertEquals(BigInteger::of(0), $noUserCounted);
-        $this->assertEquals(BigInteger::of(20), $count);
+        $this->assertSame(0, $noUserCounted);
+        $this->assertSame('20', $count);
     }
 
     public function testGetUniqueUser(){
@@ -40,8 +39,8 @@ class UserTest extends TestCase
 
         $count = User::getUniqueUser($date->year, $date->month);
 
-        $this->assertEquals(BigInteger::of(0), $noUserCounted);
-        $this->assertEquals(BigInteger::of(10), $count);
+        $this->assertSame(0, $noUserCounted);
+        $this->assertSame('10', $count);
     }
 }
 

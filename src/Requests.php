@@ -2,7 +2,6 @@
 
 namespace Biigle\Modules\Kpis;
 
-use Brick\Math\BigInteger;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -23,7 +22,7 @@ class Requests
         $end = $start->copy()->addMonth();
         $res = DB::table('kpis_actions')->whereBetween('date', [$start, $end])->sum('value');
 
-        return BigInteger::of($res);
+        return $res;
     }
     public static function getVisits($year, $month)
     {
@@ -31,6 +30,6 @@ class Requests
         $end = $start->copy()->addMonth();
         $res = DB::table('kpis_visits')->whereBetween('date', [$start, $end])->sum('value');
 
-        return BigInteger::of($res);
+        return $res;
     }
 }
