@@ -21,12 +21,12 @@ class RequestsTest extends TestCase
         $this->assertCount(1, $actions);
         $this->assertCount(1, $visits);
 
-        $this->assertEquals(50, $actions[0]);
-        $this->assertEquals(100, $visits[0]);
+        $this->assertSame(50, $actions[0]);
+        $this->assertSame(100, $visits[0]);
     }
 
     public function testSaveBigInt(){
-        $maxBigInt = "9223372036854775807";
+        $maxBigInt = 9223372036854775807;
 
         Requests::save($maxBigInt, $maxBigInt);
 
@@ -38,8 +38,8 @@ class RequestsTest extends TestCase
         $this->assertCount(1, $actions);
         $this->assertCount(1, $visits);
 
-        $this->assertEquals($maxBigInt, $actions[0]);
-        $this->assertEquals($maxBigInt, $visits[0]);
+        $this->assertSame($maxBigInt, $actions[0]);
+        $this->assertSame($maxBigInt, $visits[0]);
     }
 
     public function testGetActions()
@@ -53,7 +53,7 @@ class RequestsTest extends TestCase
 
         $count = Requests::getActions($date->year, $date->month);
 
-        $this->assertEquals(10, $count);
+        $this->assertSame('10', $count);
     }
 
     public function testGetActionsOverflow()
@@ -73,7 +73,7 @@ class RequestsTest extends TestCase
 
         $count = Requests::getVisits($date->year, $date->month);
 
-        $this->assertEquals(10, $count);
+        $this->assertSame('10', $count);
     }
 
     public function testGetVisitsOverflow()

@@ -21,7 +21,7 @@ class CountUserTest extends TestCase
         $users = DB::table('kpis_users')->where('date', '=', $yesterday->toDateString())->pluck('value');
 
         $this->assertCount(1, $users);
-        $this->assertEquals(2, $users[0]);
+        $this->assertSame(2, $users[0]);
 
     }
 
@@ -38,6 +38,6 @@ class CountUserTest extends TestCase
         $users = DB::table('kpis_users')->where('date', '=', $yesterday->toDateString())->pluck('value');
 
         $this->assertCount(1, $users);
-        $this->assertEquals(1, $users[0]);
+        $this->assertSame(1, $users[0]);
     }
 }

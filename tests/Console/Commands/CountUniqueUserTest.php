@@ -22,7 +22,7 @@ class CountUniqueUserTest extends TestCase
                         ->where('date', '=', $now->subMonth()->endOfMonth())->pluck('value');
 
         $this->assertCount(1, $uniqueUsers);
-        $this->assertEquals(3, $uniqueUsers[0]);
+        $this->assertSame(3, $uniqueUsers[0]);
 
 
     }
@@ -39,6 +39,6 @@ class CountUniqueUserTest extends TestCase
                         ->where('date', '=', $now->subMonth()->endOfMonth())->pluck('value');
 
         $this->assertCount(1, $uniqueUsers);
-        $this->assertEquals(1, $uniqueUsers[0]);
+        $this->assertSame(1, $uniqueUsers[0]);
     }
 }

@@ -23,7 +23,7 @@ class StorageTest extends TestCase
 
         $size = Storage::getStorageUsage($date->year, $date->month);
 
-        $this->assertEquals(0, $noFiles);
-        $this->assertEquals(100, $size);
+        $this->assertSame(0, $noFiles);
+        $this->assertSame('100', $size);
     }
 }
