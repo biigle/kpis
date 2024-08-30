@@ -17,6 +17,8 @@ class RequestController extends Controller
      * Saves action/visit count from cron job
      * 
      * @api {post} /kpis Save actions/visits KPIs
+     * @apiGroup KPIs
+     * @apiName StoreKpis
      * @apiPermission kpiToken
      * @apiDescription The submitted values are stored for the previous day.
      * @apiParam {Number} visits The number of GET requests to `/` (without bots).
