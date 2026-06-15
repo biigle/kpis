@@ -39,7 +39,10 @@ return new class extends Migration
                 $current = $current->addDay()->endOfMonth();
             }
 
-            DB::table('kpis_users')->insert($rows);
+            if (!empty($rows)) {
+                DB::table('kpis_users')->insert($rows);
+            }
+
         });
     }
 
