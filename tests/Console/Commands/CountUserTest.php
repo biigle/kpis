@@ -11,31 +11,31 @@ class CountUserTest extends TestCase
 {
     public function testHandle()
     {
-        $yesterday = Carbon::now()->subDay();
+        $lastMonth = Carbon::now()->subMonth();
 
-        UserTest::create(['login_at' => $yesterday]);
-        UserTest::create(['login_at' => $yesterday]);
+        UserTest::create(['created_at' => $lastMonth]);
+        UserTest::create(['created_at' => $lastMonth]);
 
         $this->artisan('kpis:count-user')->assertExitCode(0);
 
-        $users = DB::table('kpis_users')->where('date', '=', $yesterday->toDateString())->pluck('value');
+        $startOfMonth = Carbon::now()->startOfMonth()->toDateString();
+        $users = DB::table('kpis_users')->where('date', '=', $startOfMonth)->pluck('value');
 
         $this->assertCount(1, $users);
         $this->assertSame(2, $users[0]);
-
     }
 
-    public function testDifferentLogInDates()
+    public function testExcludesCurrentMonthUsers()
     {
+        $lastMonth = Carbon::now()->subMonth();
 
-        $yesterday = Carbon::now()->subDay();
-
-        UserTest::create(['login_at' => $yesterday]);
-        UserTest::create(['login_at' => Carbon::now()->subDays(2)]);
+        UserTest::create(['created_at' => $lastMonth]);
+        UserTest::create(['created_at' => Carbon::now()]);
 
         $this->artisan('kpis:count-user')->assertExitCode(0);
 
-        $users = DB::table('kpis_users')->where('date', '=', $yesterday->toDateString())->pluck('value');
+        $startOfMonth = Carbon::now()->startOfMonth()->toDateString();
+        $users = DB::table('kpis_users')->where('date', '=', $startOfMonth)->pluck('value');
 
         $this->assertCount(1, $users);
         $this->assertSame(1, $users[0]);
