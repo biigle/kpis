@@ -30,13 +30,14 @@ class CountUser extends Command
      */
     public function handle()
     {
-        $startOfMonth = Carbon::now()
+        $date = Carbon::now()
             ->settings(['monthOverflow' => false])
-            ->startOfMonth()
+            ->subMonth()
+            ->endOfMonth()
             ->toImmutable();
 
-        $nbrUser = User::where('created_at', '<', $startOfMonth)->count();
+        $nbrUser = User::where('created_at', '<=', $date)->count();
 
-        DB::table('kpis_users')->insert(['date' => $startOfMonth, 'value' => $nbrUser]);
+        DB::table('kpis_users')->insert(['date' => $date, 'value' => $nbrUser]);
     }
 }

@@ -22,18 +22,21 @@ return new class extends Migration
 
             $current = Carbon::parse($earliest)
                 ->settings(['monthOverflow' => false])
-                ->startOfMonth();
+                ->endOfMonth()
+                ->toImmutable();
             $endDate = Carbon::now()
                 ->settings(['monthOverflow' => false])
-                ->startOfMonth();
+                ->subMonth()
+                ->endOfMonth()
+                ->toImmutable();
 
             $rows = [];
             while ($current->lessThanOrEqualTo($endDate)) {
                 $rows[] = [
                     'date' => $current,
-                    'value' => DB::table('users')->where('created_at', '<', $current)->count(),
+                    'value' => DB::table('users')->where('created_at', '<=', $current)->count(),
                 ];
-                $current->addMonth();
+                $current = $current->addDay()->endOfMonth();
             }
 
             DB::table('kpis_users')->insert($rows);

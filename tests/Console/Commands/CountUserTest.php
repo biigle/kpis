@@ -11,15 +11,18 @@ class CountUserTest extends TestCase
 {
     public function testHandle()
     {
-        $lastMonth = Carbon::now()->subMonth();
+        $lastMonth = Carbon::now()
+            ->settings(['monthOverflow' => false])
+            ->subMonth()
+            ->toImmutable();
 
         UserTest::create(['created_at' => $lastMonth]);
         UserTest::create(['created_at' => $lastMonth]);
 
         $this->artisan('kpis:count-user')->assertExitCode(0);
 
-        $startOfMonth = Carbon::now()->startOfMonth()->toDateString();
-        $users = DB::table('kpis_users')->where('date', '=', $startOfMonth)->pluck('value');
+        $endOfMonth = $lastMonth->endOfMonth();
+        $users = DB::table('kpis_users')->where('date', '=', $endOfMonth)->pluck('value');
 
         $this->assertCount(1, $users);
         $this->assertSame(2, $users[0]);
@@ -27,15 +30,18 @@ class CountUserTest extends TestCase
 
     public function testExcludesCurrentMonthUsers()
     {
-        $lastMonth = Carbon::now()->subMonth();
+        $lastMonth = Carbon::now()
+            ->settings(['monthOverflow' => false])
+            ->subMonth()
+            ->toImmutable();
 
         UserTest::create(['created_at' => $lastMonth]);
         UserTest::create(['created_at' => Carbon::now()]);
 
         $this->artisan('kpis:count-user')->assertExitCode(0);
 
-        $startOfMonth = Carbon::now()->startOfMonth()->toDateString();
-        $users = DB::table('kpis_users')->where('date', '=', $startOfMonth)->pluck('value');
+        $endOfMonth = $lastMonth->endOfMonth();
+        $users = DB::table('kpis_users')->where('date', '=', $endOfMonth)->pluck('value');
 
         $this->assertCount(1, $users);
         $this->assertSame(1, $users[0]);
