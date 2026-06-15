@@ -69,7 +69,7 @@ class KpisServiceProvider extends ServiceProvider
                     ->onOneServer();
 
                 $schedule->command(CountUser::class)
-                    ->daily()
+                    ->monthly()
                     ->onOneServer();
             });
         }
