@@ -21,7 +21,7 @@ class CountUser extends Command
      *
      * @var string
      */
-    protected $description = 'Counts active users of the previous day';
+    protected $description = 'Counts registered users as of last month';
 
     /**
      * Execute the command.
@@ -30,10 +30,14 @@ class CountUser extends Command
      */
     public function handle()
     {
-        $yesterday = Carbon::yesterday();
-        $today = Carbon::today();
-        $nbrUser = User::whereBetween('login_at', [$yesterday, $today])->count();
+        $date = Carbon::now()
+            ->settings(['monthOverflow' => false])
+            ->subMonth()
+            ->endOfMonth()
+            ->toImmutable();
 
-        DB::table('kpis_users')->insert(['date' => $yesterday, 'value' => $nbrUser]);
+        $nbrUser = User::where('created_at', '<=', $date)->count();
+
+        DB::table('kpis_users')->insert(['date' => $date->toDateString(), 'value' => $nbrUser]);
     }
 }
