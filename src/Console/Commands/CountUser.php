@@ -38,6 +38,6 @@ class CountUser extends Command
 
         $nbrUser = User::where('created_at', '<=', $date)->count();
 
-        DB::table('kpis_users')->insert(['date' => $date, 'value' => $nbrUser]);
+        DB::table('kpis_users')->insert(['date' => $date->toDateString(), 'value' => $nbrUser]);
     }
 }

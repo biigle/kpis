@@ -21,7 +21,7 @@ class CountUserTest extends TestCase
 
         $this->artisan('kpis:count-user')->assertExitCode(0);
 
-        $endOfMonth = $lastMonth->endOfMonth();
+        $endOfMonth = $lastMonth->endOfMonth()->toDateString();
         $users = DB::table('kpis_users')->where('date', '=', $endOfMonth)->pluck('value');
 
         $this->assertCount(1, $users);
@@ -40,7 +40,7 @@ class CountUserTest extends TestCase
 
         $this->artisan('kpis:count-user')->assertExitCode(0);
 
-        $endOfMonth = $lastMonth->endOfMonth();
+        $endOfMonth = $lastMonth->endOfMonth()->toDateString();
         $users = DB::table('kpis_users')->where('date', '=', $endOfMonth)->pluck('value');
 
         $this->assertCount(1, $users);

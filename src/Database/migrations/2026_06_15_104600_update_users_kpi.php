@@ -33,7 +33,7 @@ return new class extends Migration
             $rows = [];
             while ($current->lessThanOrEqualTo($endDate)) {
                 $rows[] = [
-                    'date' => $current,
+                    'date' => $current->toDateString(),
                     'value' => DB::table('users')->where('created_at', '<=', $current)->count(),
                 ];
                 $current = $current->addDay()->endOfMonth();
