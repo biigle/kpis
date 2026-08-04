@@ -87,4 +87,18 @@
         </div>
     </div>
 </div>
+<div class="col-sm-5">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                Citations (total)
+            </h3>
+        </div>
+        <div class="panel-body">
+            <p class="h1 text-center">
+                {{ $citations }}
+            </p>
+        </div>
+    </div>
+</div>
 @endsection

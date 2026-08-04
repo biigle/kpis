@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Biigle\Modules\Kpis\User;
 use Biigle\Modules\Kpis\Storage;
 use Biigle\Modules\Kpis\Requests;
+use Biigle\Modules\Kpis\Citations;
 use Biigle\Http\Controllers\Views\Controller;
 
 class KpiController extends Controller
@@ -32,6 +33,7 @@ class KpiController extends Controller
         $uuser = User::getUniqueUser($year, $month);
         $user = User::getUser($year, $month);
         $storage = Storage::getStorageUsage($year, $month);
+        $citations = Citations::getCitations($year, $month);
 
         $monthOverview = [];
         for($i = 6;$i >= 1;$i--) {
@@ -44,6 +46,7 @@ class KpiController extends Controller
             'uuserNbr' => $uuser,
             'userNbr' => $user,
             'storage' => $storage,
+            'citations' => $citations,
             'monthOverview' => $monthOverview,
         ]);
 
