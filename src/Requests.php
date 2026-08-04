@@ -24,7 +24,7 @@ class Requests
         $end = $start->copy()->endOfMonth();
         $res = DB::table('kpis_actions')->whereBetween('date', [$start, $end])->sum('value');
 
-        return $res;
+        return intval($res);
     }
     public static function getVisits($year, $month)
     {
@@ -34,6 +34,6 @@ class Requests
         $end = $start->copy()->endOfMonth();
         $res = DB::table('kpis_visits')->whereBetween('date', [$start, $end])->sum('value');
 
-        return $res;
+        return intval($res);
     }
 }

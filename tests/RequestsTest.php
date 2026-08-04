@@ -53,7 +53,7 @@ class RequestsTest extends TestCase
 
         $count = Requests::getActions($date->year, $date->month);
 
-        $this->assertSame('10', $count);
+        $this->assertSame(10, $count);
     }
 
     public function testGetActionsOverflow()
@@ -85,7 +85,7 @@ class RequestsTest extends TestCase
 
         $count = Requests::getVisits($date->year, $date->month);
 
-        $this->assertSame('10', $count);
+        $this->assertSame(10, $count);
     }
 
     public function testGetVisitsOverflow()

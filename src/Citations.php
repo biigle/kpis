@@ -5,12 +5,12 @@ namespace Biigle\Modules\Kpis;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class Storage
+class Citations
 {
-    public static function getStorageUsage($year, $month)
+    public static function getCitations($year, $month)
     {
         $date = Carbon::createFromDate($year, $month, 1)->endOfMonth();
-        $res = DB::table('kpis_storage_usage')->where('date', '=', $date)->sum('value');
+        $res = DB::table('kpis_citations')->where('date', '=', $date)->sum('value');
 
         return intval($res);
     }

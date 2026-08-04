@@ -12,9 +12,11 @@ class User
         $first = Carbon::create($year, $month)->startOfMonth();
         $last = $first->copy()->endOfMonth();
 
-        return DB::table('kpis_users')
+        $res = DB::table('kpis_users')
             ->whereBetween('date', [$first, $last])
             ->sum('value');
+
+        return intval($res);
     }
 
     public static function getUniqueUser($year, $month)
@@ -22,6 +24,6 @@ class User
         $date = Carbon::createFromDate($year, $month, 1)->endOfMonth();
         $res =  DB::table('kpis_unique_users')->where('date', '=', $date)->sum('value');
 
-        return $res;
+        return intval($res);
     }
 }
