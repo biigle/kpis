@@ -10,6 +10,7 @@ use Biigle\Modules\Kpis\Console\Commands\CountUser;
 use Biigle\Modules\Kpis\Console\Commands\CountUniqueUser;
 use Biigle\Modules\Kpis\Console\Commands\CountCitations;
 use Biigle\Modules\Kpis\Console\Commands\DetermineStorageUsage;
+use Biigle\Modules\Kpis\Console\Commands\SubmitToScorpion;
 
 class KpisServiceProvider extends ServiceProvider
 {
@@ -57,6 +58,7 @@ class KpisServiceProvider extends ServiceProvider
                 CountUser::class,
                 DetermineStorageUsage::class,
                 CountCitations::class,
+                SubmitToScorpion::class,
             ]);
 
             $this->app->booted(function () {
@@ -76,6 +78,12 @@ class KpisServiceProvider extends ServiceProvider
 
                 $schedule->command(CountCitations::class)
                     ->monthly()
+                    ->onOneServer();
+
+                // Runs one day after the other commands to make sure the most recent
+                // data is submitted.
+                $schedule->command(SubmitToScorpion::class)
+                    ->monthlyOn(2, '00:00')
                     ->onOneServer();
             });
         }

@@ -24,7 +24,7 @@ class UserTest extends TestCase
         $count = User::getUser($first->year, $first->month);
 
         $this->assertSame(0, $noUserCounted);
-        $this->assertSame('20', $count);
+        $this->assertSame(20, $count);
     }
 
     public function testGetUserOverflow()
@@ -46,7 +46,7 @@ class UserTest extends TestCase
         $count = User::getUniqueUser($date->year, $date->month);
 
         $this->assertSame(0, $noUserCounted);
-        $this->assertSame('10', $count);
+        $this->assertSame(10, $count);
     }
 }
 

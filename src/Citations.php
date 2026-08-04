@@ -12,6 +12,6 @@ class Citations
         $date = Carbon::createFromDate($year, $month, 1)->endOfMonth();
         $res = DB::table('kpis_citations')->where('date', '=', $date)->sum('value');
 
-        return $res;
+        return intval($res);
     }
 }
