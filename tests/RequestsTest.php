@@ -62,6 +62,18 @@ class RequestsTest extends TestCase
         $this->testGetActions();
     }
 
+    public function testGetActionsMonthBoundary()
+    {
+        DB::table('kpis_actions')->insert([
+            ['date' => '2026-01-31', 'value' => 1],
+            ['date' => '2026-02-01', 'value' => 10],
+            ['date' => '2026-02-28', 'value' => 20],
+            ['date' => '2026-03-01', 'value' => 100],
+        ]);
+
+        $this->assertSame(30, Requests::getActions(2026, 2));
+    }
+
     public function testGetVisits()
     {
         $date = Carbon::now()
@@ -80,5 +92,17 @@ class RequestsTest extends TestCase
     {
         Carbon::setTestNow(Carbon::parse('2024-07-31T05:45:23Z'));
         $this->testGetVisits();
+    }
+
+    public function testGetVisitsMonthBoundary()
+    {
+        DB::table('kpis_visits')->insert([
+            ['date' => '2026-01-31', 'value' => 1],
+            ['date' => '2026-02-01', 'value' => 10],
+            ['date' => '2026-02-28', 'value' => 20],
+            ['date' => '2026-03-01', 'value' => 100],
+        ]);
+
+        $this->assertSame(30, Requests::getVisits(2026, 2));
     }
 }

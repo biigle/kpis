@@ -19,7 +19,9 @@ class Requests
     public static function getActions($year, $month)
     {
         $start = Carbon::create($year, $month)->startOfMonth();
-        $end = $start->copy()->addMonth();
+        // whereBetween is inclusive, so the end must be the last day of the month.
+        // Otherwise the first day of the next month would be counted twice.
+        $end = $start->copy()->endOfMonth();
         $res = DB::table('kpis_actions')->whereBetween('date', [$start, $end])->sum('value');
 
         return $res;
@@ -27,7 +29,9 @@ class Requests
     public static function getVisits($year, $month)
     {
         $start = Carbon::create($year, $month)->startOfMonth();
-        $end = $start->copy()->addMonth();
+        // whereBetween is inclusive, so the end must be the last day of the month.
+        // Otherwise the first day of the next month would be counted twice.
+        $end = $start->copy()->endOfMonth();
         $res = DB::table('kpis_visits')->whereBetween('date', [$start, $end])->sum('value');
 
         return $res;
