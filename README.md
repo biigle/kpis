@@ -8,11 +8,12 @@ A BIIGLE module to collect key performance indicators.
 
 1. Run `composer require biigle/kpis`.
 2. Add the `KPIS_TOKEN` variable to the `.env` file. The value is an authentication token (e.g. generated with `pwgen 30 1`).
-3. Copy the [Bash script](src/resources/scripts/countRequests.sh) to your webserver, configure the authentication token (and maybe the base URL) inside the script and set up a daily cron job that executes the script with the gzipped webserver logfile of the previous day as argument. Example:
+3. Add the `KPIS_SCORPION_TOKEN` variable to the `.env` file. The value is the authentication token for the [Scorpion API](https://scorpion.bi.denbi.de) to submit KPIs to. Optionally, set `KPIS_SCORPION_SERVICE` if the service name should differ from the default `BIIGLE`.
+4. Copy the [Bash script](src/resources/scripts/countRequests.sh) to your webserver, configure the authentication token (and maybe the base URL) inside the script and set up a daily cron job that executes the script with the gzipped webserver logfile of the previous day as argument. Example:
    ```
    30 0 * * * /path/to/countRequests.sh /path/to/logfiles/$(/bin/date -Idate --date "1 day ago").sql.gz > /path/to/countRequests.log 2>&1
    ```
-4. Run the migrations.
+5. Run the migrations.
 
 ## Developing
 
