@@ -28,4 +28,9 @@ return [
             "e8a5541ebb07de68e1b90257fbf97c3469f92569"
         ]
     ],
+
+    'scorpion' => [
+        'token' => env('KPIS_SCORPION_TOKEN'),
+        'service' => env('KPIS_SCORPION_SERVICE', 'BIIGLE'),
+    ],
 ];

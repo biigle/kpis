@@ -4,6 +4,7 @@ namespace Biigle\Tests\Modules\Kpis\Console\Commands;
 
 use TestCase;
 use Carbon\Carbon;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
@@ -61,7 +62,12 @@ class CountCitationsTest extends TestCase
             'api.semanticscholar.org/*' => Http::response([], 500),
         ]);
 
-        $this->artisan('kpis:count-citations')->assertExitCode(1);
+        try {
+            $this->artisan('kpis:count-citations')->run();
+            $this->fail('Expected a RequestException to be thrown.');
+        } catch (RequestException $e) {
+            // expected
+        }
 
         $this->assertSame(0, DB::table('kpis_citations')->count());
     }
@@ -85,7 +91,12 @@ class CountCitationsTest extends TestCase
             ], 200),
         ]);
 
-        $this->artisan('kpis:count-citations')->assertExitCode(1);
+        try {
+            $this->artisan('kpis:count-citations')->run();
+            $this->fail('Expected a RuntimeException to be thrown.');
+        } catch (\RuntimeException $e) {
+            $this->assertStringContainsString('fakepaperid000000000000000000000000002', $e->getMessage());
+        }
 
         $this->assertSame(0, DB::table('kpis_citations')->count());
     }
