@@ -19,16 +19,26 @@ class Requests
     public static function getActions($year, $month)
     {
         $start = Carbon::create($year, $month)->startOfMonth();
+        // The end is exclusive. Otherwise the first day of the next month would be
+        // counted twice.
         $end = $start->copy()->addMonth();
-        $res = DB::table('kpis_actions')->whereBetween('date', [$start, $end])->sum('value');
+        $res = DB::table('kpis_actions')
+            ->where('date', '>=', $start)
+            ->where('date', '<', $end)
+            ->sum('value');
 
         return intval($res);
     }
     public static function getVisits($year, $month)
     {
         $start = Carbon::create($year, $month)->startOfMonth();
+        // The end is exclusive. Otherwise the first day of the next month would be
+        // counted twice.
         $end = $start->copy()->addMonth();
-        $res = DB::table('kpis_visits')->whereBetween('date', [$start, $end])->sum('value');
+        $res = DB::table('kpis_visits')
+            ->where('date', '>=', $start)
+            ->where('date', '<', $end)
+            ->sum('value');
 
         return intval($res);
     }

@@ -41,4 +41,19 @@ class CountUniqueUserTest extends TestCase
         $this->assertCount(1, $uniqueUsers);
         $this->assertSame(1, $uniqueUsers[0]);
     }
+
+    public function testLoginWasFirstOfThisMonth()
+    {
+        $now = Carbon::now()->toImmutable()->settings(['monthOverflow' => false]);
+        UserTest::create(['login_at' => $now->subMonth()->endOfMonth()]);
+        UserTest::create(['login_at' => $now->startOfMonth()]);
+
+        $this->artisan('kpis:count-unique-user')->assertExitCode(0);
+
+        $uniqueUsers = DB::table('kpis_unique_users')
+                        ->where('date', '=', $now->subMonth()->endOfMonth())->pluck('value');
+
+        $this->assertCount(1, $uniqueUsers);
+        $this->assertSame(1, $uniqueUsers[0]);
+    }
 }
