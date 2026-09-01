@@ -77,7 +77,8 @@ class KpisServiceProvider extends ServiceProvider
                     ->onOneServer();
 
                 $schedule->command(CountCitations::class)
-                    ->monthly()
+                    // Make the command run on an unusual minute to avoid the rate limit.
+                    ->monthlyOn(1, '00:37')
                     ->onOneServer();
 
                 // Runs one day after the other commands to make sure the most recent
