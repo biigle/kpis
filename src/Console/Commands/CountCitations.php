@@ -49,10 +49,12 @@ class CountCitations extends Command
         $queries = config('kpis.citations');
 
         foreach ($queries as $query => $paperIds) {
-            $response = Http::throw()->get($this->semanticScholarApiUrl, [
-                'query' => $query,
-                'fields' => 'citationCount',
-            ]);
+            $response = Http::retry([10000, 20000])
+                ->throw()
+                ->get($this->semanticScholarApiUrl, [
+                    'query' => $query,
+                    'fields' => 'citationCount',
+                ]);
             $body = $response->json();
 
             $foundIds = [];
