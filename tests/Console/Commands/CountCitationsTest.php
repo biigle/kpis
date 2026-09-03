@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Sleep;
 
 class CountCitationsTest extends TestCase
 {
@@ -62,11 +63,16 @@ class CountCitationsTest extends TestCase
             'api.semanticscholar.org/*' => Http::response([], 500),
         ]);
 
+        // Skip the retry delays of the HTTP client.
+        Sleep::fake();
+
         try {
             $this->artisan('kpis:count-citations')->run();
             $this->fail('Expected a RequestException to be thrown.');
         } catch (RequestException $e) {
             // expected
+        } finally {
+            Sleep::fake(false);
         }
 
         $this->assertSame(0, DB::table('kpis_citations')->count());
